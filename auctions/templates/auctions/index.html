@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+<h2>Active Listings</h2>
+<form method="get">
+    <label for="category">Choose a category:</label>
+    <select name="category" id="category" onchange="this.form.submit()">
+        <option value="">All</option>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+<div class="row">
+    {% for listing in listings %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img class="card-img-top" src="{{ listing.image_url }}" alt="{{ listing.title }}" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+            <h5 class="card-title">{{ listing.title }}</h5>
+            <p class="card-text">{{ listing.description }}</p>
+            <a href="{% url 'listing' listing.id %}"
+            class="btn btn-primary">
+            More Details
+            </a>
+        </div>
+
+      </div>
+    </div>
+    {%endfor%}
+</div>
+{% endblock %}
